@@ -28,7 +28,8 @@ function main()
 
         -- move to correct tunnel lenght
         main_tunnel_length = math.floor(i-1/2) + tunnel_spacing * math.floor(i-1/2)
-        for i = 1, main_tunnel_length do
+        print("i =",i,"main_tunnel_length =",main_tunnel_length)
+        for j = 1, main_tunnel_length do
             mining.mine_height(tunnel_height)
             turtle.forward()
             relative_pos_y = relative_pos_y + 1
