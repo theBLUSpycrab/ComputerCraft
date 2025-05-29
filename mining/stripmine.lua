@@ -39,7 +39,7 @@ function normalize_rotation()
     relative_rot = normalized_rotation
 end
 
-function dump_inventory(dump_position_x, dump_position_y, return_position_x, return_position_y)
+function dump_inventory(dump_position_x, dump_position_y, return_position_x, return_position_y, do_return)
     print("Dumping inventory")
     normalize_rotation()
 
@@ -102,31 +102,32 @@ function dump_inventory(dump_position_x, dump_position_y, return_position_x, ret
         end
     end
 
-    -- return to return position
-    while relative_rot ~= 0 do
-        turtle.turnLeft()
-        relative_rot = relative_rot +1
-        normalize_rotation()
-    end
-    for i = 1, return_position_x do
-        turtle.forward()
-        relative_pos_x = relative_pos_x +1
-    end
+    if do_return then
+        -- return to return position
+        while relative_rot ~= 0 do
+            turtle.turnLeft()
+            relative_rot = relative_rot +1
+            normalize_rotation()
+        end
+        for i = 1, return_position_x do
+            turtle.forward()
+            relative_pos_x = relative_pos_x +1
+        end
 
-    if tunnel_left then
-        turtle.turnLeft()
-        relative_rot = relative_rot +1
-    end
-    if tunnel_right then
-        turtle.turnRight()
-        relative_rot = relative_rot -1
-    end
+        if tunnel_left then
+            turtle.turnLeft()
+            relative_rot = relative_rot +1
+        end
+        if tunnel_right then
+            turtle.turnRight()
+            relative_rot = relative_rot -1
+        end
 
-    for i = 1, return_position_y do
-        turtle.forward()
-        relative_pos_y = relative_pos_y +1
+        for i = 1, return_position_y do
+            turtle.forward()
+            relative_pos_y = relative_pos_y +1
+        end
     end
-
 end
 
 
@@ -145,11 +146,11 @@ function mine_tunnel(length)
         relative_pos_y = relative_pos_y + 1
 
         if mining.is_inventory_full() then
-            dump_inventory(0,0,relative_pos_x,relative_pos_y)
+            dump_inventory(0,0,relative_pos_x,relative_pos_y, true)
         end
     end
     print("DEBUG: dug a tunnel")
-    dump_inventory(0,0,0,0)
+    dump_inventory(0,0,relative_pos_x,relative_pos_y, false)
 end
 
 
