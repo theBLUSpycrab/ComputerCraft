@@ -149,7 +149,7 @@ function mine_tunnel(length)
         end
     end
     print("DEBUG: dug a tunnel")
-    dump_inventory()
+    dump_inventory(0,0,0,0)
 end
 
 
