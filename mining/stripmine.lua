@@ -35,7 +35,9 @@ function main()
         print("i =",i,"main_tunnel_length =",main_tunnel_length)
         for j = 1, main_tunnel_length do
             mining.mine_height(tunnel_height)
-            turtle.forward()
+            while not turtle.forward() do
+                mining.mine_height()
+            end
             relative_pos_y = relative_pos_y + 1
         end
 
