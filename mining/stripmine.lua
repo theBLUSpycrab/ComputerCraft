@@ -3,6 +3,7 @@ local mining = require("mining_utils")
 -- editable variables --
 local tunnel_length = 5
 local tunnel_spacing = 2
+local number_of_tunnels = 2
 local tunnel_height = 3
 local fuel_item_names = {
     ["minecraft:coal"] = true,
@@ -15,18 +16,46 @@ print("mining...")
 local main_tunnel_length = 0
 
 local tunnel_left = false
-local tunnel_right = false
+local tunnel_right = true
 
 local relative_pos_x = 0
 local relative_pos_y = 0
 local relative_rot = 0
 
-local last_pos_x = 0
-local last_pos_y = 0
-
 
 function main()
-    mine_tunnel(tunnel_length)
+    for i = 1, number_of_tunnels*2 do
+
+        -- move to correct tunnel lenght
+        main_tunnel_length = math.floor(i-1/2) + tunnel_spacing * math.floor(i-1/2)
+        for i = 1, main_tunnel_length do
+            mining.mine_height(tunnel_height)
+            turtle.forward()
+            relative_pos_y = relative_pos_y + 1
+        end
+
+        -- set direction
+        if tunnel_left then
+            tunnel_left = false
+            tunnel_right = true
+        elseif tunnel_right then
+            tunnel_right = false
+            tunnel_left = true
+        else
+            error("DEBUG: no tunnel side set")
+        end
+        mine_tunnel(tunnel_length)
+
+        -- set up for next dig
+        normalize_rotation()
+        while relative_rot ~= 0 do
+            turtle.turnLeft()
+            relative_rot = relative_rot + 1
+            normalize_rotation()
+        end
+
+        
+    end
 end
 
 
@@ -135,9 +164,17 @@ function mine_tunnel(length)
     mining.find_and_refuel(50)
     normalize_rotation()
 
-    tunnel_left = true
-    turtle.turnLeft()
-    relative_rot = relative_rot + 1
+    if tunnel_left and tunnel_right then
+        error("LEFT AND RIGHT AT ONCE")
+        return false
+    end
+    if tunnel_left then
+        turtle.turnLeft()
+        relative_rot = relative_rot + 1
+    elseif tunnel_right then
+        turtle.turnRight()
+        relative_rot = relative_rot - 1
+    end
 
     for i = 1, length do
         mining.find_and_refuel(50)
@@ -149,7 +186,7 @@ function mine_tunnel(length)
             dump_inventory(0,0,relative_pos_x,relative_pos_y, true)
         end
     end
-    print("DEBUG: dug a tunnel")
+    print("Dug a tunnel")
     dump_inventory(0,0,relative_pos_x,relative_pos_y, false)
 end
 

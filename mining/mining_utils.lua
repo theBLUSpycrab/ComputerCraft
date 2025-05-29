@@ -8,7 +8,6 @@ function self.mine_height(height)
  for i = 1, height -1 do -- dig up
   if turtle.up() then
    turtle.dig()
-   turtle.digUp()
   else
    print("Blocked going up at level ".. i)
    break
