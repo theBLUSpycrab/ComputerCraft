@@ -10,7 +10,7 @@ local fuel_item_names = {
     ["modern_industrialization:lignite_coal"] = true,
 }
 -- ------------------ --
-local version_number = 1.4
+local version_number = 1.5
 print("Stripmine V",version_number)
 
 print("mining...")
@@ -202,6 +202,10 @@ function mine_tunnel(length)
             mining.mine_height(tunnel_height)
         end
         relative_pos_y = relative_pos_y + 1
+
+        if modulo(i,8) == 0 then
+            mining.place_torch()
+        end
 
         if mining.is_inventory_full() then
             dump_inventory(0,0,relative_pos_x,relative_pos_y, true)
