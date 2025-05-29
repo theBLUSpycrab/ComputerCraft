@@ -1,7 +1,7 @@
 local mining = require("mining_utils")
 
 -- editable variables --
-local tunnel_length = 20
+local tunnel_length = 5
 local tunnel_spacing = 2
 local tunnel_height = 3
 local fuel_item_names = {
@@ -40,6 +40,7 @@ function normalize_rotation()
 end
 
 function dump_inventory(dump_position_x, dump_position_y, return_position_x, return_position_y)
+    print("Dumping inventory")
     normalize_rotation()
 
     -- return to dump position
@@ -93,7 +94,7 @@ function dump_inventory(dump_position_x, dump_position_y, return_position_x, ret
     
             if fuel_item_names[item] and not found_fuel then
                 found_fuel = true
-            elseif name == "minecraft:torch" and not found_torches then
+            elseif item == "minecraft:torch" and not found_torches then
                 found_torches = true
             else
                 turtle.drop()
@@ -148,6 +149,7 @@ function mine_tunnel(length)
         end
     end
     print("DEBUG: dug a tunnel")
+    dump_inventory()
 end
 
 
