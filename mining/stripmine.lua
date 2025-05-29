@@ -10,7 +10,7 @@ local fuel_item_names = {
     ["modern_industrialization:lignite_coal"] = true,
 }
 -- ------------------ --
-local version_number = 1.3
+local version_number = 1.4
 print("Stripmine V",version_number)
 
 print("mining...")
@@ -198,7 +198,7 @@ function mine_tunnel(length)
     for i = 1, length do
         mining.find_and_refuel(50)
         mining.mine_height(tunnel_height)
-        if not turtle.forward() then
+        while not turtle.forward() do
             mining.mine_height(tunnel_height)
         end
         relative_pos_y = relative_pos_y + 1
