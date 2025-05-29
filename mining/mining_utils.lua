@@ -41,7 +41,8 @@ function self.place_torch()
  
  -- try placing torch right
  turtle.turnRight()
- if turtle.placeUp() then
+ turtle.dig()
+ if turtle.place() then
   turtle.turnLeft()
   return true
  end
@@ -52,6 +53,7 @@ function self.place_torch()
  
  -- try placing torch left
  turtle.turnLeft()
+ turtle.dig()
  if turtle.placeUp() then
   turtle.turnRight()
   return true
