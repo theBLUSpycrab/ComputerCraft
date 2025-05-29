@@ -10,7 +10,7 @@ local fuel_item_names = {
     ["modern_industrialization:lignite_coal"] = true,
 }
 -- ------------------ --
-local version_number = 1.1
+local version_number = 1.2
 print("Stripmine V",version_number)
 
 print("mining...")
@@ -33,13 +33,15 @@ function main()
         local helper_var_2 = tunnel_spacing * math.floor((i-1) / 2)
         main_tunnel_length = helper_var_1 + helper_var_2
         print("i =",i,"main_tunnel_length =",main_tunnel_length)
+        pos()
         for j = 1, main_tunnel_length do
             mining.mine_height(tunnel_height)
             while not turtle.forward() do
                 mining.mine_height()
             end
-            relative_pos_y = relative_pos_y + 1
+            relative_pos_x = relative_pos_x + 1
         end
+        pos()
 
         -- set direction
         if tunnel_left then
@@ -65,6 +67,10 @@ function main()
     end
 end
 
+function pos()
+    print("x",relative_pos_x)
+    print("y",relative_pos_y)
+end
 
 function modulo(a, b)
     return a - math.floor(a/b)*b
@@ -101,9 +107,6 @@ function dump_inventory(dump_position_x, dump_position_y, return_position_x, ret
         turtle.forward()
         relative_pos_y = relative_pos_y -1
     end
-
-    print("DEBUG: relative_rot =",relative_rot)
-    print("DEBUG: tunnel_left =",tunnel_left,"tunnel_right =",tunnel_right)
 
     if tunnel_left then
         turtle.turnRight()
