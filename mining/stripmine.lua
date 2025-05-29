@@ -27,8 +27,11 @@ function main()
     for i = 1, number_of_tunnels*2 do
 
         -- move to correct tunnel lenght
-        main_tunnel_length = math.floor((i-1) / 2) + tunnel_spacing * math.floor((i-1) / 2)
+        local helper_var_1 = math.floor((i-1) / 2)
+        local helper_var_2 = tunnel_spacing * math.floor((i-1) / 2)
+        main_tunnel_length = helper_var_1 + helper_var_2
         print("i =",i,"main_tunnel_length =",main_tunnel_length)
+        print("helper_var_1 =",helper_var_1,"helper_var_2 =",helper_var_2)
         for j = 1, main_tunnel_length do
             mining.mine_height(tunnel_height)
             turtle.forward()
