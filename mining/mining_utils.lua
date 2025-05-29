@@ -65,7 +65,7 @@ function self.find_and_refuel(target_percent)
  local target_fuel = math.floor((target_percent / 100) * fuel_limit)
  
  if fuel_level >= target_fuel then
-  print("Fuel OK")
+  --print("Fuel OK")
   return true
  end
  

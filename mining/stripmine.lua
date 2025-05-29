@@ -10,6 +10,8 @@ local fuel_item_names = {
     ["modern_industrialization:lignite_coal"] = true,
 }
 -- ------------------ --
+local version_number = 1.0
+print("Stripmine V",version_number)
 
 print("mining...")
 
@@ -97,6 +99,9 @@ function dump_inventory(dump_position_x, dump_position_y, return_position_x, ret
         turtle.forward()
         relative_pos_y = relative_pos_y -1
     end
+
+    print("DEBUG: relative_rot =",relative_rot)
+    print("DEBUG: tunnel_left =",tunnel_left,"tunnel_right =",tunnel_right)
 
     if tunnel_left then
         turtle.turnRight()
