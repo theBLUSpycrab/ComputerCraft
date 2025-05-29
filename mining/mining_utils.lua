@@ -86,7 +86,7 @@ function self.find_and_refuel(target_percent)
    end  
   end
  end
- print("Could not rerach target fuel level")
+ --print("Could not rerach target fuel level")
  return false
 end-- end find_and_refuel
 

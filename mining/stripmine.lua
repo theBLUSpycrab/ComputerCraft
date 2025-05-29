@@ -1,16 +1,16 @@
 local mining = require("mining_utils")
 
 -- editable variables --
-local tunnel_length = 5
+local tunnel_length = 50
 local tunnel_spacing = 2
-local number_of_tunnels = 2
-local tunnel_height = 3
+local number_of_tunnels = 20
+local tunnel_height = 5
 local fuel_item_names = {
     ["minecraft:coal"] = true,
     ["modern_industrialization:lignite_coal"] = true,
 }
 -- ------------------ --
-local version_number = 1.5
+local version_number = 1.6
 print("Stripmine V",version_number)
 
 print("mining...")
@@ -203,9 +203,9 @@ function mine_tunnel(length)
         end
         relative_pos_y = relative_pos_y + 1
 
-        if modulo(i,8) == 0 then
-            mining.place_torch()
-        end
+        --if modulo(i,8) == 0 then
+        --    mining.place_torch()
+        --end
 
         if mining.is_inventory_full() then
             dump_inventory(0,0,relative_pos_x,relative_pos_y, true)
