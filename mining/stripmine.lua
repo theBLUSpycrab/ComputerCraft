@@ -16,6 +16,7 @@ print("Stripmine V",version_number)
 print("mining...")
 
 local main_tunnel_length = 0
+local safe_main_tunnel_length = 0
 
 local tunnel_left = false
 local tunnel_right = true
@@ -33,13 +34,20 @@ function main()
         local helper_var_2 = tunnel_spacing * math.floor((i-1) / 2)
         main_tunnel_length = helper_var_1 + helper_var_2
 
-        for j = 1, main_tunnel_length do
+        for k = 1, safe_main_tunnel_length do
+            turtle.forward()
+            relative_pos_x = relative_pos_x + 1
+        end
+
+        for j = 1, main_tunnel_length - safe_main_tunnel_length do
             mining.mine_height(tunnel_height)
             while not turtle.forward() do
                 mining.mine_height(tunnel_height)
             end
             relative_pos_x = relative_pos_x + 1
         end
+
+        safe_main_tunnel_length = main_tunnel_length
 
         -- set direction
         if tunnel_left then
@@ -190,7 +198,9 @@ function mine_tunnel(length)
     for i = 1, length do
         mining.find_and_refuel(50)
         mining.mine_height(tunnel_height)
-        turtle.forward()
+        if not turtle.forward() then
+            mining.mine_height(tunnel_height)
+        end
         relative_pos_y = relative_pos_y + 1
 
         if mining.is_inventory_full() then
