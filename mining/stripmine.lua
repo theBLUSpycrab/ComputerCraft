@@ -10,7 +10,7 @@ local fuel_item_names = {
     ["modern_industrialization:lignite_coal"] = true,
 }
 -- ------------------ --
-local version_number = 1.0
+local version_number = 1.1
 print("Stripmine V",version_number)
 
 print("mining...")
