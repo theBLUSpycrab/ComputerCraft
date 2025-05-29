@@ -31,7 +31,6 @@ function main()
         local helper_var_2 = tunnel_spacing * math.floor((i-1) / 2)
         main_tunnel_length = helper_var_1 + helper_var_2
         print("i =",i,"main_tunnel_length =",main_tunnel_length)
-        print("helper_var_1 =",helper_var_1,"helper_var_2 =",helper_var_2)
         for j = 1, main_tunnel_length do
             mining.mine_height(tunnel_height)
             turtle.forward()
@@ -104,7 +103,7 @@ function dump_inventory(dump_position_x, dump_position_y, return_position_x, ret
         relative_rot = relative_rot -1
     end
     if tunnel_right then
-        turtle.turnRight()
+        turtle.turnLeft()
         relative_rot = relative_rot +1
     end
 
